@@ -1,21 +1,51 @@
 package com.axxes.cc.boot;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-import org.springframework.web.bind.annotation.Mapping;
+import java.net.URI;
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.axxes.cc.boot.dao.CustomerDao;
 import com.axxes.cc.boot.model.Customer;
 
 @RestController
 @RequestMapping("/customers")
 public class CustomerRestController {
 
-    
-    @RequestMapping(path="/{id}",method=GET)
-    public Customer getCustomer(String id) {
-        return new Customer("Kevin", "Sels");
+    @Autowired
+    private CustomerDao customerDao;
+
+    @RequestMapping(path = "/{id:\\d*}", method = GET)
+    public Customer getCustomer(@PathVariable("id") Long id) {
+        return customerDao.findOne(id);
     }
+
+    @RequestMapping(method=GET) 
+    public Collection<Customer> findByLastName(@RequestParam("lastName") String lastName) {
+        return customerDao.findByLastNameIgnoreCase(lastName);
+    }
+        
+    
+    @RequestMapping(method = PUT)
+    public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
+        Customer savedCustomer = customerDao.save(customer);
+        
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest() //
+                .path("/{id}") //
+                .buildAndExpand(savedCustomer.getId()) //
+                .toUri();
+        
+        return ResponseEntity.created(location).build();
+    }
+
 }
