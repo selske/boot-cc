@@ -1,6 +1,7 @@
-include ':rest-svc', ':config-svc', ':cc-boot-starter', ':cc-autoconfiguration'
+include ':rest-svc', ':config-svc', ':cc-boot-starter', ':cc-autoconfiguration', ':eureka-server'
 
 project(':rest-svc').projectDir = "$rootDir/rest-svc" as File
 project(':config-svc').projectDir = "$rootDir/config-svc" as File
 project(':cc-boot-starter').projectDir = "$rootDir/cc-boot-starter" as File
 project(':cc-autoconfiguration').projectDir = "$rootDir/cc-autoconfiguration" as File
+project(':eureka-server').projectDir = "$rootDir/eureka-server" as File
