@@ -5,9 +5,11 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class Beans {
@@ -19,6 +21,12 @@ public class Beans {
         String username = "kevin";
         String password = "kevin_pwd";
         return new SimpleDriverDataSource(driver, url, username, password);
+    }
+    
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 }
