@@ -1,0 +1,5 @@
+include ':rest-svc', ':cc-boot-starter', ':cc-autoconfiguration'
+
+project(':rest-svc').projectDir = "$rootDir/rest-svc" as File
+project(':cc-boot-starter').projectDir = "$rootDir/cc-boot-starter" as File
+project(':cc-autoconfiguration').projectDir = "$rootDir/cc-autoconfiguration" as File

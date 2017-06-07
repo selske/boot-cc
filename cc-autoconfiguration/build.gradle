@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-autoconfigure'
+	compile 'org.slf4j:slf4j-api'
+	
+	compileOnly 'org.springframework:spring-context-support'
+    compileOnly 'com.google.guava:guava:22.0'
+}

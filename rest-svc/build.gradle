@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile project(':cc-boot-starter')
+	compile project(':cc-autoconfiguration')
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-cache'
+    
+    compile 'com.google.guava:guava:22.0'
+    compile 'mysql:mysql-connector-java'
+    
+//    runtime 'com.h2database:h2'
+}
